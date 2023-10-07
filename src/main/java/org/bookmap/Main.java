@@ -4,7 +4,6 @@ import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        long startTime = System.currentTimeMillis();
         OrderBook orderBook = new OrderBook();
         try (BufferedReader reader = new BufferedReader(new FileReader("input.txt"));
              BufferedWriter writer = new BufferedWriter(new FileWriter("output.txt"))) {
@@ -53,7 +52,5 @@ public class Main {
                 }
             }
         }
-        long endTime = System.currentTimeMillis();
-        System.out.println("execution time: " + (endTime - startTime) + " ms");
     }
 }
