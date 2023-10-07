@@ -33,7 +33,7 @@ public class Main {
                         int price = Integer.parseInt(array[2]);
                         int size = orderBook.getSizeAtPrice(array[3], price);
                         StringBuilder result = new StringBuilder();
-                        result.append(price).append(",").append(size);
+                        result.append(size).append(",").append(price);
                         writer.write(result.toString());
                         writer.newLine();
                     }
