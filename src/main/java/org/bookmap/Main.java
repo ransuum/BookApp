@@ -17,9 +17,9 @@ public class Main {
                 line.trim();
                 String[] array;
                 if (line.contains(",")) {
-                    array = line.split(",\\s*");
+                    array = line.trim().split(",\\s*");
                 } else {
-                    array = line.split("\\s+");
+                    array = line.trim().split("\\s+");
                 }
                 String action = array[0];
                 if (action.isEmpty()) {
@@ -28,13 +28,17 @@ public class Main {
                 } else {
                     if (array[0].equals("u")) {
                         if (array.length >= 4) {
+                            String orderType = array[3].trim();
                             int price = Integer.parseInt(array[1].trim());
                             int size = Integer.parseInt(array[2].trim());
                             if (price < 1 || price > 109 || size < 0 || size > 108) {
                                 writer.write("Error: size > 108 or < 0, price > 109 or < 1");
                                 writer.newLine();
+                            } else if (("bid".equals(orderType) && orderBook.isBidPrice(price)) ||
+                                    ("ask".equals(orderType) && orderBook.isAskPrice(price))) {
+                                writer.write("Error: Invalid order update, violates bid-ask rule.");
+                                writer.newLine();
                             } else {
-                                String orderType = array[3];
                                 orderBook.LimitOrder(orderType, price, size);
                             }
                         } else {
