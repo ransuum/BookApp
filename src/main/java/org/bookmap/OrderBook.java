@@ -66,4 +66,10 @@ public class OrderBook {
         Map<Integer, Integer> orders = ("bid".equals(type)) ? bidOrders : askOrders;
         return orders.getOrDefault(price, 0);
     }
+    public boolean isBidPrice(int price) {
+        return bidOrders.containsKey(price);
+    }
+    public boolean isAskPrice(int price) {
+        return askOrders.containsKey(price);
+    }
 }
