@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class OrderBook {
-    rivate final TreeMap<Integer, Integer> bidOrders;
+    private final TreeMap<Integer, Integer> bidOrders;
     private final TreeMap<Integer, Integer> askOrders;
 
     public OrderBook(){
@@ -15,13 +15,13 @@ public class OrderBook {
     public void LimitOrder(String type, int price, int size) {
         if ("bid".equals(type)) {
             if (size > 0) {
-                bidOrders.put(size, price);
+                bidOrders.put(price, size);
             } else {
                 bidOrders.remove(price);
             }
         } else if ("ask".equals(type)) {
             if (size > 0) {
-                askOrders.put(size, price);
+                askOrders.put(price, size);
             } else {
                 askOrders.remove(price);
             }
@@ -46,7 +46,7 @@ public class OrderBook {
                 remainingSize -= orderSize;
                 orders.remove(price);
             } else {
-                orders.put(orderSize - remainingSize, price);
+                orders.put(price, orderSize - remainingSize);
                 break;
             }
         }
@@ -59,7 +59,7 @@ public class OrderBook {
         int bestPrice = type.equals("best_bid") ? orders.keySet().stream().max(Integer::compareTo).get() :
                 orders.keySet().stream().min(Integer::compareTo).get();
         int bestSize = orders.get(bestPrice);
-        return bestSize + "," + bestPrice;
+        return bestPrice + "," + bestSize;
     }
 
     public int getSizeAtPrice(String type, int price) {
