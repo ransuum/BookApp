@@ -14,7 +14,6 @@ public class Main {
                 line = line.replaceAll("^\\s*u", "u");
                 line = line.replaceAll("^\\s*q", "q");
                 line = line.replaceAll("^\\s*o", "o");
-                line.trim();
                 String[] array;
                 if (line.contains(",")) {
                     array = line.trim().split(",\\s*");
@@ -33,10 +32,6 @@ public class Main {
                             int size = Integer.parseInt(array[2].trim());
                             if (price < 1 || price > 109 || size < 0 || size > 108) {
                                 writer.write("Error: size > 108 or < 0, price > 109 or < 1");
-                                writer.newLine();
-                            } else if (("bid".equals(orderType) && orderBook.isBidPrice(price)) ||
-                                    ("ask".equals(orderType) && orderBook.isAskPrice(price))) {
-                                writer.write("Error: Invalid order update, violates bid-ask rule.");
                                 writer.newLine();
                             } else {
                                 orderBook.LimitOrder(orderType, price, size);
